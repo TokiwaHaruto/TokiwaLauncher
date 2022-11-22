@@ -35,7 +35,7 @@ jobs:
             ### ビルド情報
             ${{ steps.get_version.outputs.version }} by ${{ github.actor }}
           draft: false
-          prerelease: false
+          prerelease: true
 
 
   build:
