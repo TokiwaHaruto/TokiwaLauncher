@@ -710,7 +710,7 @@ async function dlAsync(login = true) {
                 const gameStateChange = function(data) {
                     data = data.trim()
                     if (SERVER_JOINED_REGEX.test(data)) {
-                        DiscordWrapper.updateDetails('50人クラフトに参加中!')
+                        DiscordWrapper.updateDetails('マインクラフトを起動中...')
                     } else if (GAME_JOINED_REGEX.test(data)) {
                         DiscordWrapper.updateDetails('マインクラフトをプレイ中!')
                     }
