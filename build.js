@@ -1,13 +1,26 @@
 const builder = require('electron-builder')
 const Platform = builder.Platform
+const fs = require('fs-extra')
+const path = require('path')
+const root = require('app-root-path')
+const Util = require('./app/assets/js/util')
+
+const dirName = 'jdk'
+const basePath = path.join(root.path, dirName)
+
+if (!fs.existsSync(basePath)) {
+    console.log(`\x1b[31mERROR!!: ${basePath} が見つかりません`)
+    console.log("\x1b[31mERROR!!: https://github.com/TokiwaHaruto/files/releases/download/jdk/jdk.zip をダウンロードして展開してください")
+    return
+}
 
 builder.build({
     targets: (process.argv[2] != null && Platform[process.argv[2]] != null ? Platform[process.argv[2]] : getCurrentPlatform()).createTarget(),
     config: {
-        appId: 'numalauncher',
-        productName: 'NumaLauncher',
+        appId: 'tokiwalauncher',
+        productName: 'TokiwaLauncher',
         artifactName: '${productName}-setup-${version}.${ext}',
-        copyright: 'Copyright © 2018-2020 Daniel Scalzi, 2020 TeamKUN',
+        copyright: 'Copyright © 2024 iamtakagi',
         directories: {
             buildResources: 'build',
             output: 'dist'
@@ -30,19 +43,19 @@ builder.build({
         },
         linux: {
             target: 'AppImage',
-            maintainer: 'Daniel Scalzi, TeamKUN',
-            vendor: 'Daniel Scalzi, TeamKUN',
-            synopsis: '沼でも使えるMinecraftランチャー',
-            description: '参加型に参加するためのすべてがここに。Mod、コンフィグ、アップデートが全自動で揃います。',
+            maintainer: 'iamtakagi',
+            vendor: 'iamtakagi',
+            synopsis: 'Minecraftランチャー',
+            description: '誰でも簡単に使えます',
             category: 'Game'
         },
         compression: 'maximum',
         files: [
-            '!{dist,.gitignore,.vscode,docs,dev-app-update.yml,.travis.yml,.nvmrc,.eslintrc.json,build.js,numa_skins.json,skinSetting.json,jdk}'
+            '!{dist,.gitignore,.vscode,docs,dev-app-update.yml,.travis.yml,.nvmrc,.eslintrc.json,build.js,numa_skins.json,skinSetting.json}'
         ],
         extraResources: [
             'libraries',
-            //`jdk/${getJDKDirectory()}`
+            `jdk/${getJDKDirectory()}`
         ],
         asar: true
     }
@@ -63,5 +76,19 @@ function getCurrentPlatform() {
         default:
             console.error('Cannot resolve current platform!')
             return undefined
+    }
+}
+
+function getJDKDirectory() {
+    switch (process.argv[2]) {
+        case 'WINDOWS':
+            return 'windows'
+        case 'MAC':
+            if (Util.isAappleSilicon()) {
+                return 'mac-apple'
+            }
+            return 'mac-intel'
+        case 'LINUX':
+            return 'linux'
     }
 }

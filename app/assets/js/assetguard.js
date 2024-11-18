@@ -319,11 +319,11 @@ class JavaGuard extends EventEmitter {
             default:
                 // サポートOS外
                 return Promise.resolve({
-                    error: `「${process.platform}」は対応していないOSです。<br>Windows(x64)、macOS(x64/M1)のみ対応しています。<br>Linuxは対応していませんので沼ランチャーの使用を諦め、ご自身でModパック導入方法を調べて導入してください。`
+                    error: `「${process.platform}」は対応していないOSです。<br>Windows(x64)、macOS(x64/M1)のみ対応しています。<br>Linuxは対応していませんので常磐ランチャーの使用を諦め、ご自身でModパック導入方法を調べて導入してください。`
                 })
         }
 
-        const url = `https://github.com/TeamKun/public-files/releases/download/openjdk/jdk${major}-${sanitizedOS}-${architecture}.${ext}`
+        const url = `https://github.com/TokiwaHaruto/files/releases/download/openjdk/jdk${major}-${sanitizedOS}-${architecture}.${ext}`
 
         return new Promise((resolve, reject) => {
             request.head({ url, json: true }, (err, resp) => {
@@ -335,7 +335,7 @@ class JavaGuard extends EventEmitter {
                     })
                 } else {
                     resolve({
-                        error: `ダウンロードできませんでした。<br>「jdk${major}-${sanitizedOS}-${architecture}.${ext}」が <a href="https://github.com/TeamKun/public-files/releases/tag/openjdk">TeamKunのGitHubページ内</a> にあるか確認してください。`
+                        error: `ダウンロードできませんでした。<br>「jdk${major}-${sanitizedOS}-${architecture}.${ext}」が <a href="https://github.com/TokiwaHaruto/files/releases/tag/openjdk">TokiwaHaruto/filesのGitHubページ内</a> にあるか確認してください。`
                     })
                 }
             })

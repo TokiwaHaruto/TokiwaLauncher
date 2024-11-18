@@ -787,9 +787,6 @@ async function dlAsync(login = true) {
                         }
                     }
 
-
-
-
                     // Bind listeners to stdout.
                     proc.stdout.on('data', tempListener)
                     proc.stderr.on('data', gameErrorListener)
@@ -797,7 +794,7 @@ async function dlAsync(login = true) {
                     // 一定時間経ったらLoading表示を解除
                     setTimeout(() => { toggleLaunchArea(false) }, 10000)
 
-                    setLaunchDetails('準備OK。参加勢集合！！！')
+                    setLaunchDetails('Minecraftを起動中')
 
                     // Init Discord Hook
                     const distro = DistroManager.getDistribution()

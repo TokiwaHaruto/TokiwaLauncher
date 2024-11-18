@@ -7,3 +7,4 @@
 .idea/*
 /jdk/
 .DS_Store
+package-lock.json
